@@ -42,13 +42,15 @@ function getWeather (lat, lon){
 })
 .then(function (data) {
     let day = 8
-    let temp = data.list
+    var temp = data.list
     console.log(temp)
     var dayoneweather = temp.slice(0, 5)
-    avg (dayoneweather)
-    max_temp(dayoneweather)
-    min_temp(dayoneweather)
-    console.log(dayoneweather)
+    // avg (dayoneweather)
+    // max_temp(dayoneweather)
+    // min_temp(dayoneweather)
+    // wind_speed(dayoneweather)
+    // console.log(dayoneweather)
+    createCard(dayoneweather)
     for (var index = 5; index < temp.length; index+= day) {
         let fourdayweather = temp.slice(index, index+8)
         console.log(fourdayweather)
@@ -56,14 +58,103 @@ function getWeather (lat, lon){
     }
 })
 }
+function createCard(array){
+    avg (array)
+    max_temp(array)
+    min_temp(array)
+    wind_speed(array)
+    wind_gust(array)
+    wind_direction(array)
+    console.log(array)
+}
 function avg (array){
     var temptotal = 0
     array.forEach((element, index) => {
         temptotal = temptotal + element.main.temp
-        //console.log(temptotal)
         if (index==array.length-1) {
             let tempavg = temptotal/array.length
             console.log(tempavg)
+        }
+    });
+}
+function mostfrequent (array){
+    var mf = 1;
+    var m = 0;
+    var item;
+    for (var i=0; i<array.length; i++)
+    {
+            for (var j=i; j<array.length; j++)
+            {
+                    if (array[i] == array[j])
+                    m++;
+                    if (mf<m)
+                    {
+                    mf=m; 
+                    item = array[i];
+                    }
+            }
+            m=0;
+    }
+    // console.log(item) ;
+    return item;
+    }
+
+function wind_direction (array){
+    var degarray = []
+    console.log(array)
+    array.forEach((element, index) => {
+        let gustdir = element.wind.deg
+        if (0<=gustdir<22.5 || 337.5<=gustdir<=360) {
+            degarray.push("N")
+        }
+        else if (22.5<=gustdir<67.5) {
+            degarray.push("NE")
+        }
+        else if (67.5<=gustdir<112.5) {
+            degarray.push("E")
+        }
+        else if (112.5<=gustdir<157.5) {
+            degarray.push("SE")
+        }
+        else if (157.5<=gustdir<202.5) {
+            degarray.push("S")
+        }
+        else if (202.5<=gustdir<247.5) {
+            degarray.push("SW")
+        }
+        else if (247.5<=gustdir<292.5) {
+            degarray.push("W")
+        }
+        else if (292.5<=gustdir<337.5) {
+            degarray.push("NW")
+        };
+
+        if (index==array.length-1){
+            console.log(degarray)
+        }
+    })
+    mostfrequent(degarray)
+    console.log(mostfrequent)
+}
+function wind_speed (array){
+    var windtotal = 0
+    array.forEach((element, index) => {
+        windtotal = windtotal + element.wind.speed
+        if (index==array.length-1) {
+            let windavg = windtotal/array.length
+            console.log(windavg)
+        }
+    });
+}
+function wind_gust (array){
+    var gustarray = []
+    array.forEach((element, index) => {
+        let gustvalue = element.wind.gust
+        gustarray.push(gustvalue)
+        if (index==array.length-1) {
+            gustarray.sort((a,b)=>a-b)
+            console.log(gustarray)
+            console.log(gustarray[gustarray.length - 1])
         }
     });
 }
