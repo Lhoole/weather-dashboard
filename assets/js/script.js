@@ -45,27 +45,33 @@ function getWeather (lat, lon){
     var temp = data.list
     console.log(temp)
     var dayoneweather = temp.slice(0, 5)
-    // avg (dayoneweather)
-    // max_temp(dayoneweather)
-    // min_temp(dayoneweather)
-    // wind_speed(dayoneweather)
-    // console.log(dayoneweather)
     createCard(dayoneweather)
     for (var index = 5; index < temp.length; index+= day) {
         let fourdayweather = temp.slice(index, index+8)
-        console.log(fourdayweather)
-        avg(fourdayweather)
+        //console.log(fourdayweather)
+        createCard(fourdayweather)
     }
 })
 }
 function createCard(array){
+    console.log(array)
     avg (array)
     max_temp(array)
     min_temp(array)
     wind_speed(array)
     wind_gust(array)
     wind_direction(array)
-    console.log(array)
+    iconFind(array)
+    humidityMax(array)
+    weatherDate(array)
+    // console.log(max_temp(array))
+    // console.log(min_temp(array))
+    // console.log(wind_speed(array))
+    // console.log(wind_gust(array))
+    // console.log(wind_direction(array))
+    // console.log(iconFind(array))
+    // console.log(humidityMax(array))
+    // console.log(weatherDate(array))
 }
 function avg (array){
     var temptotal = 0
@@ -74,34 +80,38 @@ function avg (array){
         if (index==array.length-1) {
             let tempavg = temptotal/array.length
             console.log(tempavg)
+            return tempavg
         }
     });
 }
+function weatherDate(array){
+    var date = new Date(array[1].dt*1000).toLocaleDateString("en-AU")
+    console.log(date)
+    return date
+}
+
 function mostfrequent (array){
     var mf = 1;
     var m = 0;
     var item;
-    for (var i=0; i<array.length; i++)
-    {
-            for (var j=i; j<array.length; j++)
-            {
+    for (var i=0; i<array.length; i++){
+            for (var j=i; j<array.length; j++){
                     if (array[i] == array[j])
                     m++;
-                    if (mf<m)
-                    {
+                    if (mf<m){
                     mf=m; 
                     item = array[i];
                     }
             }
             m=0;
     }
-    // console.log(item) ;
+    //console.log(item) ;
     return item;
     }
 
 function wind_direction (array){
     var degarray = []
-    console.log(array)
+    //console.log(array)
     array.forEach((element, index) => {
         let gustdir = element.wind.deg
         if (0<=gustdir<22.5 || 337.5<=gustdir<=360) {
@@ -130,11 +140,13 @@ function wind_direction (array){
         };
 
         if (index==array.length-1){
-            console.log(degarray)
+            //console.log(degarray)
+            mostfrequent(degarray)
+            console.log(mostfrequent(degarray))
+            return mostfrequent(degarray)
         }
     })
-    mostfrequent(degarray)
-    console.log(mostfrequent)
+
 }
 function wind_speed (array){
     var windtotal = 0
@@ -143,6 +155,7 @@ function wind_speed (array){
         if (index==array.length-1) {
             let windavg = windtotal/array.length
             console.log(windavg)
+            return windavg
         }
     });
 }
@@ -153,8 +166,9 @@ function wind_gust (array){
         gustarray.push(gustvalue)
         if (index==array.length-1) {
             gustarray.sort((a,b)=>a-b)
-            console.log(gustarray)
+            //console.log(gustarray)
             console.log(gustarray[gustarray.length - 1])
+            return (gustarray[gustarray.length - 1])
         }
     });
 }
@@ -165,8 +179,9 @@ function wind_gust (array){
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>a-b)
-            console.log(tempsarray)
+            //console.log(tempsarray)
             console.log(tempsarray[tempsarray.length - 1])
+            return (tempsarray[tempsarray.length - 1])
         }
     });
  }
@@ -178,12 +193,38 @@ function wind_gust (array){
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>b-a)
-            console.log(tempsarray)
+            //console.log(tempsarray)
             console.log(tempsarray[tempsarray.length - 1])
+            return (tempsarray[tempsarray.length - 1])
         }
     });
  }
 
+function iconFind (array) {
+    var iconarray = []
+    array.forEach((element, index) => {
+        let icon = element.weather[0].icon
+        iconarray.push(icon)
+        if (index==array.length-1) {
+            mostfrequent(iconarray)
+            console.log(mostfrequent(iconarray))
+            return mostfrequent(iconarray)
+        }
+    });
+}
+function humidityMax (array) {
+    var humidarray = []
+    array.forEach((element, index) => {
+        let humidvalue = element.main.humidity
+        humidarray.push(humidvalue)
+        if (index==array.length-1) {
+            humidarray.sort((a,b)=>a-b)
+            //console.log(humidarray)
+            console.log(humidarray[humidarray.length - 1])
+            return (humidarray[humidarray.length - 1])
+        }
+    });
+ }
 
 getCoords(lastsearch)
 
