@@ -15,7 +15,7 @@ function getlastsearch() {
     }
     console.log(lastsearch + "test")
     }
-
+    
 getlastsearch()
 
 function getCoords (cityName){
@@ -43,18 +43,37 @@ function getWeather (lat, lon){
 .then(function (data) {
     let day = 8
     var temp = data.list
-    console.log(temp)
+    let cycle = 0
+    //console.log(temp)
     var dayoneweather = temp.slice(0, 5)
-    createCard(dayoneweather)
+    let maincard = createCard(dayoneweather)
+    console.log(maincard)
+    fillcard(maincard, "m")
+    $(`#cityEl`).html(`Weather Dashboard: ${lastsearch}`)
     for (var index = 5; index < temp.length; index+= day) {
         let fourdayweather = temp.slice(index, index+8)
         //console.log(fourdayweather)
-        createCard(fourdayweather)
+        let subcard = createCard(fourdayweather)
+        console.log(subcard)
+        fillcard(subcard, cycle)
+        cycle++
     }
 })
 }
+function fillcard(card, i){
+        $(`#iconEl-${i}`).attr("src", `https://openweathermap.org/img/wn/${card.weathericon}@2x.png`)
+        $(`#averageEl-${i}`).html(`Average temperature: ${card.temperature.toFixed(2)}°C`)
+        $(`#maxEl-${i}`).html(`Maximum temperature: ${card.maximum.toFixed(2)}°C`)
+        $(`#minEl-${i}`).html(`Minimun temperature: ${card.minimum.toFixed(2)}°C`)
+        $(`#gustEl-${i}`).html(`Gust speed: ${card.gustspeed.toFixed(2)}m/s`)
+        $(`#windEl-${i}`).html(`Wind speed: ${card.windspeed.toFixed(2)}m/s`)
+        $(`#directionEl-${i}`).html(`Wind direction: ${card.winddirection}`)
+        $(`#humidityEl-${i}`).html(`Humidity: ${card.dayhumidity.toFixed(2)}%`)
+        $(`#dateEl-${i}`).html(`${card.weatherdate}`)
+}
+
 function createCard(array){
-    console.log(array)
+    //console.log(array)
     let average = avg(array)
     let max = max_temp(array)
     let min = min_temp(array)
@@ -64,20 +83,21 @@ function createCard(array){
     let icon = iconFind(array)
     let humid = humidityMax(array)
     let day = weatherDate(array)
-    let cards = [
+    let card = 
         {
             temperature: average,
-            maximun: max,
+            maximum: max,
             minimum: min,
-            winspeed: wind,
+            windspeed: wind,
             gustspeed: gust,
             winddirection: direction,
             weathericon: icon,
             dayhumidity: humid,
             weatherdate: day
         }
-    ]
-    console.log(cards)
+    
+    //console.log(card)
+    return card
 }
 function avg (array){
     var temptotal = 0
