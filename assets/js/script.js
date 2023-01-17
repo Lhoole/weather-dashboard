@@ -55,38 +55,45 @@ function getWeather (lat, lon){
 }
 function createCard(array){
     console.log(array)
-    avg (array)
-    max_temp(array)
-    min_temp(array)
-    wind_speed(array)
-    wind_gust(array)
-    wind_direction(array)
-    iconFind(array)
-    humidityMax(array)
-    weatherDate(array)
-    // console.log(max_temp(array))
-    // console.log(min_temp(array))
-    // console.log(wind_speed(array))
-    // console.log(wind_gust(array))
-    // console.log(wind_direction(array))
-    // console.log(iconFind(array))
-    // console.log(humidityMax(array))
-    // console.log(weatherDate(array))
+    let average = avg(array)
+    let max = max_temp(array)
+    let min = min_temp(array)
+    let wind = wind_speed(array)
+    let gust = wind_gust(array)
+    let direction = wind_direction(array)
+    let icon = iconFind(array)
+    let humid = humidityMax(array)
+    let day = weatherDate(array)
+    let cards = [
+        {
+            temperature: average,
+            maximun: max,
+            minimum: min,
+            winspeed: wind,
+            gustspeed: gust,
+            winddirection: direction,
+            weathericon: icon,
+            dayhumidity: humid,
+            weatherdate: day
+        }
+    ]
+    console.log(cards)
 }
 function avg (array){
     var temptotal = 0
+    var tempavg;
     array.forEach((element, index) => {
         temptotal = temptotal + element.main.temp
         if (index==array.length-1) {
-            let tempavg = temptotal/array.length
-            console.log(tempavg)
-            return tempavg
-        }
+            tempavg = temptotal/array.length
+            //console.log(tempavg)
+        } 
     });
+    return tempavg
 }
 function weatherDate(array){
     var date = new Date(array[1].dt*1000).toLocaleDateString("en-AU")
-    console.log(date)
+    //console.log(date)
     return date
 }
 
@@ -111,6 +118,7 @@ function mostfrequent (array){
 
 function wind_direction (array){
     var degarray = []
+    var result;
     //console.log(array)
     array.forEach((element, index) => {
         let gustdir = element.wind.deg
@@ -141,89 +149,89 @@ function wind_direction (array){
 
         if (index==array.length-1){
             //console.log(degarray)
-            mostfrequent(degarray)
-            console.log(mostfrequent(degarray))
-            return mostfrequent(degarray)
+            result = mostfrequent(degarray)
+            //console.log(mostfrequent(degarray))
         }
-    })
-
+    }); return result
 }
 function wind_speed (array){
     var windtotal = 0
+    var windavg
     array.forEach((element, index) => {
         windtotal = windtotal + element.wind.speed
         if (index==array.length-1) {
-            let windavg = windtotal/array.length
-            console.log(windavg)
-            return windavg
+            windavg = windtotal/array.length
+            //console.log(windavg)
+            
         }
-    });
+    }); return windavg
 }
 function wind_gust (array){
     var gustarray = []
+    var gustmax
     array.forEach((element, index) => {
         let gustvalue = element.wind.gust
         gustarray.push(gustvalue)
         if (index==array.length-1) {
             gustarray.sort((a,b)=>a-b)
             //console.log(gustarray)
-            console.log(gustarray[gustarray.length - 1])
-            return (gustarray[gustarray.length - 1])
+            gustmax = gustarray[gustarray.length - 1]
+            
         }
-    });
+    }); return gustmax
 }
  function max_temp(array){
     var tempsarray = []
+    var tempmax;
     array.forEach((element, index) => {
         let tempvalue = element.main.temp
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>a-b)
             //console.log(tempsarray)
-            console.log(tempsarray[tempsarray.length - 1])
-            return (tempsarray[tempsarray.length - 1])
+            tempmax = tempsarray[tempsarray.length - 1]
         }
-    });
+    }); return tempmax
  }
 
  function min_temp(array){
     var tempsarray = []
+    var tempmin;
     array.forEach((element, index) => {
         let tempvalue = element.main.temp
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>b-a)
             //console.log(tempsarray)
-            console.log(tempsarray[tempsarray.length - 1])
-            return (tempsarray[tempsarray.length - 1])
+           tempmin = tempsarray[tempsarray.length - 1]
         }
-    });
+    }); return tempsarray[tempsarray.length - 1]
  }
 
 function iconFind (array) {
     var iconarray = []
+    var iconFinal
     array.forEach((element, index) => {
         let icon = element.weather[0].icon
         iconarray.push(icon)
         if (index==array.length-1) {
-            mostfrequent(iconarray)
-            console.log(mostfrequent(iconarray))
-            return mostfrequent(iconarray)
+            iconFinal = mostfrequent(iconarray)
+            //console.log(mostfrequent(iconarray))           
         }
-    });
+    }); return iconFinal
 }
 function humidityMax (array) {
     var humidarray = []
+    var humidfinal;
     array.forEach((element, index) => {
         let humidvalue = element.main.humidity
         humidarray.push(humidvalue)
         if (index==array.length-1) {
             humidarray.sort((a,b)=>a-b)
             //console.log(humidarray)
-            console.log(humidarray[humidarray.length - 1])
-            return (humidarray[humidarray.length - 1])
+            humidfinal = humidarray[humidarray.length - 1]
         }
-    });
+    }); return humidfinal
  }
 
 getCoords(lastsearch)
@@ -255,6 +263,5 @@ searchbox.addEventListener('input', function handleChange(event) {
     event.target.textContent = userinput.trim()
   });
   
-  searchbtn.addEventListener('click', citySelectFromSearch);{
-  }
-  
+searchbtn.addEventListener('click', citySelectFromSearch);{
+}
