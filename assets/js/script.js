@@ -28,14 +28,12 @@ function getlastsearch() {
 getlastsearch()
 
 function getCoords (cityName){
-    console.log(cityName)
     fetch (`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
     .then(function (response){
         return response.json();
     })
     .then(function (data) {
-        console.log(data)
- 
+
         var lat = data[0].lat
         var lon = data[0].lon
 
@@ -52,18 +50,14 @@ function getWeather (lat, lon){
     let day = 8
     var temp = data.list
     let cycle = 0
-    //console.log(temp)
     var dayoneweather = temp.slice(0, 5)
     let maincard = createCard(dayoneweather)
-    console.log(maincard)
     fillcard(maincard, "m")
     $(`#cityEl`).html(`Weather Dashboard: ${userinput}`)
     fillbutton()
     for (var index = 5; index < temp.length; index+= day) {
         let fourdayweather = temp.slice(index, index+8)
-        //console.log(fourdayweather)
         let subcard = createCard(fourdayweather)
-        console.log(subcard)
         fillcard(subcard, cycle)
         cycle++
     }
@@ -82,7 +76,6 @@ function fillcard(card, i){
 }
 
 function createCard(array){
-    //console.log(array)
     let average = avg(array)
     let max = max_temp(array)
     let min = min_temp(array)
@@ -105,7 +98,6 @@ function createCard(array){
             weatherdate: day
         }
     
-    //console.log(card)
     return card
 }
 function avg (array){
@@ -115,14 +107,12 @@ function avg (array){
         temptotal = temptotal + element.main.temp
         if (index==array.length-1) {
             tempavg = temptotal/array.length
-            //console.log(tempavg)
         } 
     });
     return tempavg
 }
 function weatherDate(array){
     var date = new Date(array[1].dt*1000).toLocaleDateString("en-AU")
-    //console.log(date)
     return date
 }
 
@@ -141,20 +131,16 @@ function mostfrequent (array){
             }
             m=0;
     }
-    //console.log(item) ;
     if (item !== "undefined"){
-        console.log("item1")
         return item;
     } else {
     var item2 = array[(array.length/2).toFixed(0)]
-    console.log("item2")
     return item2;
     }
 }
 function wind_direction (array){
     var degarray = []
     var result;
-    //console.log(array)
     array.forEach((element, index) => {
         let gustdir = element.wind.deg
         if (0<=gustdir<22.5 || 337.5<=gustdir<=360) {
@@ -183,9 +169,7 @@ function wind_direction (array){
         };
 
         if (index==array.length-1){
-            //console.log(degarray)
             result = mostfrequent(degarray)
-            //console.log(mostfrequent(degarray))
         }
     }); return result
 }
@@ -196,7 +180,6 @@ function wind_speed (array){
         windtotal = windtotal + element.wind.speed
         if (index==array.length-1) {
             windavg = windtotal/array.length
-            //console.log(windavg)
             
         }
     }); return windavg
@@ -209,7 +192,6 @@ function wind_gust (array){
         gustarray.push(gustvalue)
         if (index==array.length-1) {
             gustarray.sort((a,b)=>a-b)
-            //console.log(gustarray)
             gustmax = gustarray[gustarray.length - 1]
             
         }
@@ -223,7 +205,6 @@ function wind_gust (array){
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>a-b)
-            //console.log(tempsarray)
             tempmax = tempsarray[tempsarray.length - 1]
         }
     }); return tempmax
@@ -237,7 +218,6 @@ function wind_gust (array){
         tempsarray.push(tempvalue)
         if (index==array.length-1) {
             tempsarray.sort((a,b)=>b-a)
-            //console.log(tempsarray)
            tempmin = tempsarray[tempsarray.length - 1]
         }
     }); return tempsarray[tempsarray.length - 1]
@@ -250,8 +230,7 @@ function iconFind (array) {
         let icon = element.weather[0].icon
         iconarray.push(icon)
         if (index==array.length-1) {
-            iconFinal = mostfrequent(iconarray)
-            //console.log(mostfrequent(iconarray))           
+            iconFinal = mostfrequent(iconarray)           
         }
     }); return iconFinal
 }
@@ -263,7 +242,6 @@ function humidityMax (array) {
         humidarray.push(humidvalue)
         if (index==array.length-1) {
             humidarray.sort((a,b)=>a-b)
-            //console.log(humidarray)
             humidfinal = humidarray[humidarray.length - 1]
         }
     }); return humidfinal
