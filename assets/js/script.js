@@ -1,4 +1,4 @@
-var geoApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}";
+var geoApiUrl = "https://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}";
 var apiKey = "349c7d3f61d7183379a35bc8f017e1ee";
 //var apiKey = "b3394aa5da9ad83a9e8db42a82e93e76";
 var userinput = "Sydney";
@@ -29,7 +29,7 @@ getlastsearch()
 
 function getCoords (cityName){
     console.log(cityName)
-    fetch (`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
+    fetch (`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${apiKey}`)
     .then(function (response){
         return response.json();
     })
@@ -39,13 +39,12 @@ function getCoords (cityName){
         var lat = data[0].lat
         var lon = data[0].lon
 
-        console.log(lon, lat)
         getWeather(lat, lon)
     })
 
 }
 function getWeather (lat, lon){
- fetch (`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
+ fetch (`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`)
  .then(function (response){
     return response.json();
 })
