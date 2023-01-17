@@ -11,86 +11,252 @@
 </head>
 <body>
     <div class="header col-12 tst mb-3">
-        <h1>
-            Weather Dashboard
+        <h1 id="cityEl">
         </h1>
     </div>
     <div class="row col-12">
-        <div class="col-3 p-3 mx-2 tst">
-            <div class="card row flex-row">
-                <div class="tst pb-3 col-12 mx-auto">
-                    <h1 class="col-12">
+        <div class="col-2 p-3 mx-2">
+            <div class="card row flex-row tst">
+                <div class="pb-3 col-12 mx-auto border-bottom">
+                    <h2 class="col-12">
                         Search for a city
-                    </h1>
+                    </h2>
                     <form class="col-12">
                         <input class="form-control my-2 col-12" type="search" placeholder="Search" aria-label="Search" id="searchcontent">
-                        <button class="btn btn-primary btn-lg btn-block my-2" type="submit" id="searchbtn">Search City</button>
+                        <button class="btn btn-primary btn-sm btn-block my-2" type="submit" id="searchbtn">Search City</button>
                     </form>
                 </div>
-                <div class="col-lg-12 card-body">
-                    <ul class="pastsearch col-12">
-                            <form class="my-2">
-                                <button class="btn btn-primary btn-lg btn-block" type="button" >Search City</button>
+                <div class="card-body">
+                    <ul class="pastsearch">
+                            <form class="my-1">
+                                <button id="btn-0" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
                             </form>
-                            <form>
-                                <button class="btn btn-primary btn-lg btn-block" type="button" >Search City</button>
+                            <form class="my-1">
+                                <button id="btn-1" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-2" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-3" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-4" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-5" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-6" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
+                            </form>
+                            <form class="my-1">
+                                <button id="btn-7" class="hidden btn btn-primary btn-sm btn-block reSearch" type="button" >Search City</button>
                             </form>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="row col-9 p-3 tst weatherbit">
-            <div class="col-12 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <div class="row col-10 p-3 weatherbit">
+            <div class="col-12">
+                <div class="card row flex-row tst">
+                    <div class="col-lg-12 card-body row">
+                        <h1 class="card-title col-12" id="dateEl-m">Blog entry</h1>
+                        <div class="col-12 row">
+                            <img class="col-4" id="iconEl-m" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                            <ul class="col-4 ">
+                                <li class="border-bottom" id="averageEl-m">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-m">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-m">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-m">
+                                    content
+                                </li>
+                            </ul>
+                            <ul class="col-4">
+                                <li class="border-bottom" id="windEl-m">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-m">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-m">
+                                    content
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-3 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="col-12">
+                <h1>Five day forecast:</h1>
+            </div>
+            <div class="col-2 my-3">
+                <div class="card row flex-row littlecard">
+                    <div class="col-lg-12 card-body row ">
+                        <div>
+                            <h4 class= tst" id="dateEl-0">Blog entry</h1>
+                            <img class="imgtst" id="iconEl-0" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                        </div>
+                            <ul class="col-12 row">
+                                <li class="border-bottom" id="averageEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="windEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-0">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-0">
+                                    content
+                                </li>
+                            </ul>                        
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-3 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="col-2 my-3">
+                <div class="card row flex-row littlecard">
+                    <div class="col-lg-12 card-body row">
+                        <div>
+                            <h4 class= tst" id="dateEl-1">Blog entry</h1>
+                            <img class="imgtst" id="iconEl-1" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                        </div>
+                        <ul class="col-12 row">
+                                <li class="border-bottom" id="averageEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="windEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-1">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-1">
+                                    content
+                                </li>
+                            </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-3 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="col-2 my-3">
+                <div class="card row flex-row littlecard">
+                    <div class="col-lg-12 card-body row">
+                        <div>
+                            <h4 class= tst" id="dateEl-2">Blog entry</h1>
+                            <img class="imgtst" id="iconEl-2" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                        </div>
+                            <ul class="col-12 row">
+                                <li class="border-bottom" id="averageEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="windEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-2">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-2">
+                                    content
+                                </li>
+                            </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-3 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="col-2 my-3">
+                <div class="card row flex-row littlecard">
+                    <div class="col-lg-12 card-body row">
+                        <div>
+                            <h4 class= tst" id="dateEl-3">Blog entry</h1>
+                            <img class="imgtst" id="iconEl-3" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                        </div>
+                            <ul class="col-12 row">
+                                <li class="border-bottom" id="averageEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="windEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-3">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-3">
+                                    content
+                                </li>
+                            </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-2 my-3 tst">
-                <div class="card row flex-row">
-                    <img id="imageEl-1" class=" card-img-start img-fluid p-0" src="https://picsum.photos/300/200"/>
-                    <div class="col-lg-12 card-body">
-                        <h1 class="card-title" id="titleEl-1">Blog entry</h1>
-                        <p class="card-text" id="descriptionEl-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="col-2 my-3">
+                <div class="card row flex-row littlecard">
+                    <div class="col-lg-12 card-body row">
+                        <div>
+                            <h4 class= tst" id="dateEl-4">Blog entry</h1>
+                            <img class="imgtst" id="iconEl-4" src="https://openweathermap.org/img/wn/10d@2x.png"/>
+                        </div>
+                            <ul class="col-12 row">
+                                <li class="border-bottom" id="averageEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="maxEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="minEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="humidityEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="windEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="gustEl-4">
+                                    content
+                                </li>
+                                <li class="border-bottom" id="directionEl-4">
+                                    content
+                                </li>
+                            </ul>
                     </div>
                 </div>
             </div>

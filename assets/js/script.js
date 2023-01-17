@@ -1,9 +1,19 @@
 var geoApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}";
 var apiKey = "349c7d3f61d7183379a35bc8f017e1ee";
-var userinput;
+//var apiKey = "b3394aa5da9ad83a9e8db42a82e93e76";
+var userinput = "Sydney";
 var lastsearch;
 var searchbtn = document.getElementById("searchbtn")
 var searchbox = document.getElementById("searchcontent")
+var pastsearch = JSON.parse(localStorage.getItem("PreviousCities"))
+function fillbutton(){
+    if (pastsearch !== null ) {
+    let reversed = pastsearch.reverse()
+    reversed.forEach((element, i) => {
+        $(`#btn-${i}`).html(`${element}`)
+        $(`#btn-${i}`).removeClass("hidden")
+    });}
+}
 
 function getlastsearch() {
     var previousCity = localStorage.getItem("lastsearch");
@@ -13,9 +23,8 @@ function getlastsearch() {
     lastsearch = "Sydney";
     localStorage.setItem("lastsearch", lastsearch)
     }
-    console.log(lastsearch + "test")
     }
-
+    
 getlastsearch()
 
 function getCoords (cityName){
@@ -43,18 +52,38 @@ function getWeather (lat, lon){
 .then(function (data) {
     let day = 8
     var temp = data.list
-    console.log(temp)
+    let cycle = 0
+    //console.log(temp)
     var dayoneweather = temp.slice(0, 5)
-    createCard(dayoneweather)
+    let maincard = createCard(dayoneweather)
+    console.log(maincard)
+    fillcard(maincard, "m")
+    $(`#cityEl`).html(`Weather Dashboard: ${userinput}`)
+    fillbutton()
     for (var index = 5; index < temp.length; index+= day) {
         let fourdayweather = temp.slice(index, index+8)
         //console.log(fourdayweather)
-        createCard(fourdayweather)
+        let subcard = createCard(fourdayweather)
+        console.log(subcard)
+        fillcard(subcard, cycle)
+        cycle++
     }
 })
 }
+function fillcard(card, i){
+        $(`#iconEl-${i}`).attr("src", `https://openweathermap.org/img/wn/${card.weathericon}@2x.png`)
+        $(`#averageEl-${i}`).html(`Average temperature: ${card.temperature.toFixed(2)}°C`)
+        $(`#maxEl-${i}`).html(`Maximum temperature: ${card.maximum.toFixed(2)}°C`)
+        $(`#minEl-${i}`).html(`Minimun temperature: ${card.minimum.toFixed(2)}°C`)
+        $(`#gustEl-${i}`).html(`Gust speed: ${card.gustspeed.toFixed(2)}m/s`)
+        $(`#windEl-${i}`).html(`Wind speed: ${card.windspeed.toFixed(2)}m/s`)
+        $(`#directionEl-${i}`).html(`Wind direction: ${card.winddirection}`)
+        $(`#humidityEl-${i}`).html(`Humidity: ${card.dayhumidity.toFixed(2)}%`)
+        $(`#dateEl-${i}`).html(`${card.weatherdate}`)
+}
+
 function createCard(array){
-    console.log(array)
+    //console.log(array)
     let average = avg(array)
     let max = max_temp(array)
     let min = min_temp(array)
@@ -64,20 +93,21 @@ function createCard(array){
     let icon = iconFind(array)
     let humid = humidityMax(array)
     let day = weatherDate(array)
-    let cards = [
+    let card = 
         {
             temperature: average,
-            maximun: max,
+            maximum: max,
             minimum: min,
-            winspeed: wind,
+            windspeed: wind,
             gustspeed: gust,
             winddirection: direction,
             weathericon: icon,
             dayhumidity: humid,
             weatherdate: day
         }
-    ]
-    console.log(cards)
+    
+    //console.log(card)
+    return card
 }
 function avg (array){
     var temptotal = 0
@@ -113,9 +143,15 @@ function mostfrequent (array){
             m=0;
     }
     //console.log(item) ;
-    return item;
+    if (item !== "undefined"){
+        console.log("item1")
+        return item;
+    } else {
+    var item2 = array[(array.length/2).toFixed(0)]
+    console.log("item2")
+    return item2;
     }
-
+}
 function wind_direction (array){
     var degarray = []
     var result;
@@ -246,7 +282,13 @@ function savesearch() {
       } else {
       previousCities = ["Sydney"];
       }
-    previousCities.push(search)
+    if (previousCities.includes(search)){
+        previousCities.remove(search)
+        previousCities.push(search)
+    } else {
+        previousCities.push(search)
+    }
+    
     if (previousCities.length > 8) {
     previousCities.shift()
     }
@@ -265,3 +307,25 @@ searchbox.addEventListener('input', function handleChange(event) {
   
 searchbtn.addEventListener('click', citySelectFromSearch);{
 }
+
+function reSearch (){
+    userinput = this.innerHTML
+    citySelectFromSearch()
+    location.reload
+}
+var searchbtn0 = document.getElementById("btn-0")
+var searchbtn1 = document.getElementById("btn-1")
+var searchbtn2 = document.getElementById("btn-2")
+var searchbtn3 = document.getElementById("btn-3")
+var searchbtn4 = document.getElementById("btn-4")
+var searchbtn5 = document.getElementById("btn-5")
+var searchbtn6 = document.getElementById("btn-6")
+var searchbtn7 = document.getElementById("btn-7")
+searchbtn0.addEventListener('click', reSearch);
+searchbtn1.addEventListener('click', reSearch);
+searchbtn2.addEventListener('click', reSearch);
+searchbtn3.addEventListener('click', reSearch);
+searchbtn4.addEventListener('click', reSearch);
+searchbtn5.addEventListener('click', reSearch);
+searchbtn6.addEventListener('click', reSearch);
+searchbtn7.addEventListener('click', reSearch);
